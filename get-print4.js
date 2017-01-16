@@ -1,12 +1,13 @@
-function getAndPrintHTML(options) {
+var https = require('https');
 
-  var https = require('https');
+function getHTML (options, callback) {
 
   https.get(requestOptions, function (response) {
 
     response.setEncoding('utf8');
 
     var dataChunks = [];
+
     response.on('data', function (data) {
       dataChunks.push(data);
       console.log('Chunk Received. Length:', data.length);
@@ -14,10 +15,13 @@ function getAndPrintHTML(options) {
 
     response.on('end', function() {
       console.log('Response stream complete.');
-      console.log(dataChunks);
+      callback(dataChunks);
     });
-
   });
+}
+
+function printHTML (html) {
+  console.log(html);
 }
 
 var requestOptions = {
@@ -25,4 +29,4 @@ var requestOptions = {
   path: '/http-examples/step1.html'
 };
 
-getAndPrintHTML(requestOptions);
+getHTML(requestOptions, printHTML);

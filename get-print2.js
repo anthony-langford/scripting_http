@@ -25,4 +25,4 @@ function getAndPrintHTML() {
   });
 }
 
-getAndPrintHTMLChunks()
+getAndPrintHTML()
